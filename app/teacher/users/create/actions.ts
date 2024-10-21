@@ -3,27 +3,7 @@
 import { createClient } from '@/utils/supabase/server'
 
 export async function createUser (formData: FormData) {
-  const supabase = createClient()
-
-  const { data: { user } } = await supabase.auth.getUser()
-
-  if (!user) {
-    return { error: 'User not authenticated' }
-  }
-
-  const { data: userRole, error: userRoleError } = await supabase
-    .from('users_role')
-    .select('user_id, role')
-    .eq('user_id', user.id)
-    .single()
-
-  if (userRoleError) {
-    return { error: 'Error retrieving role' }
-  }
-
-  if (userRole.role !== 'teacher') {
-    return { error: 'Only teachers can create new users' }
-  }
+  const supabase = createClient({ isAdmin: true })
 
   const email = formData.get('email') as string
   const password = formData.get('password') as string

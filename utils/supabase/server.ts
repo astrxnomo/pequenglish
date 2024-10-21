@@ -2,33 +2,38 @@ import { type Database } from '@/types/supabase'
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
-export function createClient () {
+export function createClient ({ isAdmin = false } = {}) {
   const cookieStore = cookies()
 
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL ?? '',
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '',
+    // Usa la "Service Role Key" si isAdmin es true, de lo contrario, la clave anónima
+    isAdmin
+      ? process.env.SUPABASE_SERVICE_ROLE_KEY ?? '' // Clave de servicio para operaciones admin
+      : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? '', // Clave anónima pública
     {
       cookies: {
         get (name: string) {
-          return cookieStore.get(name)?.value
+          // Solo manejar cookies si no es admin (ya que el admin no las necesita)
+          return !isAdmin ? cookieStore.get(name)?.value : undefined
         },
         set (name: string, value: string, options: CookieOptions) {
-          try {
-            cookieStore.set({ name, value, ...options })
-          } catch (error) {
-            // The `set` method was called from a Server Component.
-            // This can be ignored if you have middleware refreshing
-            // user sessions.
+          if (!isAdmin) {
+            try {
+              cookieStore.set({ name, value, ...options })
+            } catch (error) {
+              // Si esto ocurre en un Server Component, se puede ignorar si tienes middleware
+              // que refresca sesiones de usuario.
+            }
           }
         },
         remove (name: string, options: CookieOptions) {
-          try {
-            cookieStore.set({ name, value: '', ...options })
-          } catch (error) {
-            // The `delete` method was called from a Server Component.
-            // This can be ignored if you have middleware refreshing
-            // user sessions.
+          if (!isAdmin) {
+            try {
+              cookieStore.set({ name, value: '', ...options })
+            } catch (error) {
+              // Igualmente, se puede ignorar en Server Components con middleware
+            }
           }
         }
       }
