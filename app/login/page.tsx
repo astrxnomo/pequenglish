@@ -19,7 +19,7 @@ export default async function Login () {
   }
 
   return (
-    <section className="h-[calc(100vh-300px)] flex justify-center items-center">
+    <section className="h-[calc(100vh-60px)] flex justify-center items-center">
       <Card className="mx-auto max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>

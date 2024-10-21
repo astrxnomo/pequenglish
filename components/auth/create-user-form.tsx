@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { createUser } from '@/app/teacher/users/create/actions'
+import { createUser } from '@/app/teacher/actions'
 import { useToastContext } from '@/contexts/toast-context'
 
 export default function CreateUserForm () {
