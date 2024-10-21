@@ -16,7 +16,7 @@ export default async function CreateUser () {
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
-    return <ServerToast error='no hay estas autenticado'title='xd' redirect="/login" />
+    return <ServerToast error="No user authenticated" redirect="/login" />
   }
 
   const { data: role, error: roleError } = await supabase
@@ -34,21 +34,18 @@ export default async function CreateUser () {
   }
 
   return (
-    <>
-      <ServerToast success="Welcome, teacher!" />
-      <section className="h-[calc(100vh-57px)] flex justify-center items-center">
-        <Card className="mx-auto max-w-sm">
-          <CardHeader>
-            <CardTitle className="text-2xl">Create New User</CardTitle>
-            <CardDescription>
-              Create a new user account (Teacher only)
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-4">
-            <CreateUserForm />
-          </CardContent>
-        </Card>
-      </section>
-    </>
+    <section className="h-[calc(100vh-300px)] flex justify-center items-center">
+      <Card className="mx-auto max-w-sm">
+        <CardHeader>
+          <CardTitle className="text-2xl">Create New User</CardTitle>
+          <CardDescription>
+            Create a new user account (Teacher only)
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-4">
+          <CreateUserForm />
+        </CardContent>
+      </Card>
+    </section>
   )
 }
