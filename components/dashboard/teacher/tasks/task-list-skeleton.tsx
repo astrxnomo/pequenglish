@@ -3,17 +3,18 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 export function TaskSkeleton () {
   return (
-    <Card className="transition-shadow hover:shadow-lg">
-      <CardHeader>
-        <CardTitle className="flex items-center justify-between">
+    <Card className="transition-shadow hover:shadow-lg rounded-lg border border-gray-200">
+      <CardHeader className="flex bg-gray-50 p-4 rounded-t-lg">
+        <CardTitle className="flex items-center justify-between text-lg font-semibold text-gray-800 flex-grow overflow-hidden whitespace-nowrap text-ellipsis">
           <Skeleton className="h-6 w-3/4" />
-          <Skeleton className="h-6 w-6 rounded-full" />
+          <Skeleton className="h-6 w-6 rounded-full ml-2" />
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <Skeleton className="h-4 w-full mb-2" />
-        <Skeleton className="h-4 w-3/4" />
-        <Skeleton className="h-3 w-1/2 mt-2" />
+      <CardContent className="p-4 space-y-3">
+        <div className="flex justify-between items-center text-sm">
+          <Skeleton className="h-6 w-2/4" />
+          <Skeleton className="h-6 w-1/4 rounded-md" />
+        </div>
       </CardContent>
     </Card>
   )

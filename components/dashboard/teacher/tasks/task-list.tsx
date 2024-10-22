@@ -7,7 +7,7 @@ import { Toast } from '@/components/toast'
 import { TaskListSkeleton } from './task-list-skeleton'
 import { createClient } from '@/utils/supabase/client'
 
-const TaskListClient = () => {
+export default function TaskListClient () {
   const [tasks, setTasks] = useState<Task[] | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -25,6 +25,7 @@ const TaskListClient = () => {
       } else {
         setTasks(tasks)
       }
+
       setLoading(false)
     }
 
@@ -42,5 +43,3 @@ const TaskListClient = () => {
     </div>
   )
 }
-
-export default TaskListClient
