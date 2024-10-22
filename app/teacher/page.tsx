@@ -1,35 +1,23 @@
-import { createClient } from '@/utils/supabase/server'
-import { ServerToast } from '@/components/server-toast'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
-import { UserList } from '@/components/dashboard/teacher/users/user-list'
-import TaskSection from '@/components/dashboard/teacher/tasks/task-section'
-import { Suspense } from 'react'
 import TaskList from '@/components/dashboard/teacher/tasks/task-list'
+import { createClient } from '@/utils/supabase/server'
+import { Toast } from '@/components/toast'
+import { UserList } from '@/components/dashboard/teacher/users/user-list'
 
-export default async function CreateUser () {
+export default async function TeacherPage () {
   const supabase = createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
-    return <ServerToast error="No user authenticated" redirect="/login" />
+    return <Toast error="No user authenticated" redirect="/login" />
   }
 
-  const { data: profile, error: profileError } = await supabase
+  const { data: profiles, error: profilesError } = await supabase
     .from('profiles')
-    .select('name, email')
-    .eq('id', user.id)
-    .single()
-
-  if (!profile || profileError) {
-    return <ServerToast error="Profile error" redirect="/" />
-  }
-
-  const { profiles, error: profilesError } = await supabase
-    .from('profiles')
-    .select()
+    .select('id, user_id, full_name, email, avatar_url')
 
   const { data: role, error: roleError } = await supabase
     .from('users_role')
@@ -38,22 +26,13 @@ export default async function CreateUser () {
     .single()
 
   if (!role || roleError) {
-    return <ServerToast error="Role error" redirect="/" />
-  }
-
-  if (role.role !== 'teacher') {
-    return <ServerToast error="Only teachers can access this page" redirect="/" />
+    return <Toast error="Role error" redirect="/" />
+  } else if (role.role !== 'teacher') {
+    return <Toast error="Only teachers can access this page" redirect="/" />
   }
 
   return (
     <div className="space-y-10">
-      <header className="bg-gradient-to-r from-primary to-primary-foreground text-white p-6 rounded-lg shadow-lg">
-        <h1 className="text-4xl font-bold">
-          Bienvenido, {profile?.name ?? profile?.email}
-        </h1>
-        <p className="text-xl mt-2">Panel de Profesor</p>
-      </header>
-
       <section>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-3xl font-bold">Tareas Pendientes</h2>
@@ -63,10 +42,7 @@ export default async function CreateUser () {
             </Button>
           </Link>
         </div>
-
-        <Suspense fallback={<div>Cargando...</div>}>
-          <TaskList/>
-        </Suspense>
+          <TaskList />
       </section>
 
       <section>
@@ -78,8 +54,6 @@ export default async function CreateUser () {
             </Button>
           </Link>
         </div>
-
-        {/* <ScheduleTable classesMap={classesMap} isTeacher={true} /> */}
       </section>
 
       <section>

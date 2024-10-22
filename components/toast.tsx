@@ -12,12 +12,12 @@ interface ServerToastProps {
   variant?: 'default' | 'destructive'
 }
 
-export function ServerToast ({
+export function Toast ({
   error,
   success,
   redirect,
   title,
-  variant = 'default' // Valor por defecto
+  variant = 'default'
 }: ServerToastProps) {
   const { showToast } = useToastContext()
   const router = useRouter()
