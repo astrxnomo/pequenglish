@@ -33,3 +33,22 @@ export async function createUser (formData: FormData) {
 
   return { success: 'User created successfully' }
 }
+
+export async function updateUser (profileId: string, data: { name: string }) {
+  const supabase = createClient({ isAdmin: true })
+
+  if (!profileId || !data.name) {
+    return { error: 'Profile ID and name are required' }
+  }
+
+  const { error } = await supabase
+    .from('profiles')
+    .update({ name: data.name })
+    .eq('id', profileId)
+
+  if (error) {
+    return { error: error.message }
+  }
+
+  return { success: 'Profile updated successfully' }
+}

@@ -4,8 +4,9 @@ import { Plus } from 'lucide-react'
 import TaskList from '@/components/dashboard/teacher/tasks/task-list'
 import { createClient } from '@/utils/supabase/server'
 import { ServerToast } from '@/components/server-toast'
-import { UserList } from '@/components/dashboard/teacher/users/user-list'
-import CreateUserButton from '@/components/dashboard/teacher/users/create-user-button'
+import CreateUserButton from '@/components/dashboard/teacher/profiles/create-user-button'
+import ScheduleTable from '@/components/dashboard/teacher/classes/schedule-table'
+import ProfileList from '@/components/dashboard/teacher/profiles/profile-list'
 
 export default async function TeacherPage () {
   const supabase = createClient()
@@ -15,10 +16,6 @@ export default async function TeacherPage () {
   if (!user) {
     return <ServerToast error="No user authenticated" redirect="/login" />
   }
-
-  const { data: profiles, error: profilesError } = await supabase
-    .from('profiles')
-    .select('id, user_id, full_name, email, avatar_url')
 
   const { data: role, error: roleError } = await supabase
     .from('users_role')
@@ -57,6 +54,8 @@ export default async function TeacherPage () {
             </Button>
           </Link>
         </div>
+
+        <ScheduleTable />
       </section>
 
       <section>
@@ -64,7 +63,7 @@ export default async function TeacherPage () {
           <h2 className="text-3xl font-bold">Usuarios</h2>
           <CreateUserButton />
         </div>
-        <UserList profiles={profiles || []} />
+        <ProfileList/>
       </section>
     </div>
   )
