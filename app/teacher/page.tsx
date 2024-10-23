@@ -4,7 +4,7 @@ import { Plus } from 'lucide-react'
 import TaskList from '@/components/dashboard/teacher/tasks/task-list'
 import { createClient } from '@/utils/supabase/server'
 import { ServerToast } from '@/components/server-toast'
-import CreateUserButton from '@/components/dashboard/teacher/profiles/create-user-button'
+import CreateUserDrawer from '@/components/dashboard/teacher/profiles/create-user-drawer'
 import ScheduleTable from '@/components/dashboard/teacher/classes/schedule-table'
 import ProfileList from '@/components/dashboard/teacher/profiles/profile-list'
 
@@ -61,7 +61,7 @@ export default async function TeacherPage () {
       <section>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-3xl font-bold">Usuarios</h2>
-          <CreateUserButton />
+          <CreateUserDrawer />
         </div>
         <ProfileList/>
       </section>

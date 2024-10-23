@@ -1,6 +1,6 @@
 export default function DaysHeader ({ daysOfWeek }: { daysOfWeek: string[] }) {
   return (
-    <div className="sticky top-0 z-10 flex border-b">
+    <div className="flex border-b">
       <div className="w-8 md:w-16"></div>
       {daysOfWeek.map((day) => (
         <div
