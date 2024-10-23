@@ -1,13 +1,16 @@
 import { Button } from '@/components/ui/button'
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer'
-
 import CreateUserForm from '@/components/auth/create-user-form'
+import { Plus } from 'lucide-react'
 
 export default function CreateUserButton () {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button className="w-full">Crear usuario</Button>
+        <Button>
+          <Plus/>
+          Crear usuario
+        </Button>
       </DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
