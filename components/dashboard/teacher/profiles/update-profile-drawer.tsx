@@ -2,8 +2,9 @@ import { Button } from '@/components/ui/button'
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer'
 import UpdateProfileForm from './update-profile-form'
 import { Badge } from '@/components/ui/badge'
+import { type Profile } from '@/types/custom'
 
-export default function UpdateProfileButton ({ profileId }: { profileId: string }) {
+export default function UpdateProfileDrawer ({ profile }: { profile: Profile }) {
   return (
     <Drawer>
       <DrawerTrigger>
@@ -12,12 +13,12 @@ export default function UpdateProfileButton ({ profileId }: { profileId: string 
         </Badge>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="mx-auto w-full max-w-sm">
+        <div className="mx-auto w-full max-w-sm my-10">
           <DrawerHeader>
             <DrawerTitle>Editar perfil</DrawerTitle>
           </DrawerHeader>
 
-          <UpdateProfileForm profileId={profileId} />
+          <UpdateProfileForm profile={profile} />
 
           <DrawerFooter>
             <DrawerClose asChild>

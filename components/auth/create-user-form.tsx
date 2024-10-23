@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { createUser } from '@/app/teacher/actions'
+import { createProfile } from '@/app/teacher/users/actions'
 import { useToastContext } from '@/contexts/toast-context'
 
 export default function CreateUserForm () {
@@ -16,7 +16,7 @@ export default function CreateUserForm () {
     setIsLoading(true)
 
     const formData = new FormData(event.currentTarget)
-    const result = await createUser(formData)
+    const result = await createProfile(formData)
 
     setIsLoading(false)
 

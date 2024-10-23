@@ -1,43 +1,30 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { updateUser } from '@/app/teacher/actions'
+import { updateProfile } from '@/app/teacher/users/actions'
 import { useToastContext } from '@/contexts/toast-context'
-import { createClient } from '@/utils/supabase/client'
+import { type Profile } from '@/types/custom'
 import { useRouter } from 'next/navigation'
 
-export default function UpdateProfileForm ({ profileId }: { profileId: string }) {
-  const [name, setName] = useState('')
+export default function UpdateProfileForm ({ profile }: { profile: Profile }) {
+  const [name, setName] = useState(profile.name ?? '')
   const [isLoading, setIsLoading] = useState(false)
   const { showToast } = useToastContext()
   const router = useRouter()
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      const supabase = createClient()
-
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('name')
-        .eq('id', profileId)
-        .single()
-
-      if (profile) {
-        setName(profile.name || '')
-      }
-    }
-
-    fetchProfile()
-  }, [profileId])
+    setName(profile.name ?? '')
+  }, [profile.name])
 
   async function onSubmit (event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setIsLoading(true)
 
-    const result = await updateUser(profileId, { name })
+    const updatedProfile = { ...profile, name }
+    const result = await updateProfile(updatedProfile)
 
     setIsLoading(false)
 
@@ -45,7 +32,7 @@ export default function UpdateProfileForm ({ profileId }: { profileId: string })
       showToast({ type: 'error', message: result.error })
     } else if (result?.success) {
       showToast({ type: 'success', message: result.success })
-      router.push('/teacher')
+      router.refresh()
     }
   }
 
@@ -57,6 +44,7 @@ export default function UpdateProfileForm ({ profileId }: { profileId: string })
           id="name"
           name="name"
           value={name}
+          disabled={isLoading}
           onChange={(e) => { setName(e.target.value) }}
           required
         />

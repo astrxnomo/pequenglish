@@ -1,8 +1,11 @@
 'use server'
 
 import { createClient } from '@/utils/supabase/server'
+import { type Profile } from '@/types/custom'
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 
-export async function createUser (formData: FormData) {
+export async function createProfile (formData: FormData) {
   const supabase = createClient({ isAdmin: true })
 
   const email = formData.get('email') as string
@@ -31,20 +34,24 @@ export async function createUser (formData: FormData) {
     return { error: error.message }
   }
 
-  return { success: 'User created successfully' }
+  return { success: 'Profile created successfully' }
 }
 
-export async function updateUser (profileId: string, data: { name: string }) {
-  const supabase = createClient({ isAdmin: true })
+export async function updateProfile (profile: Profile) {
+  const supabase = createClient()
 
-  if (!profileId || !data.name) {
-    return { error: 'Profile ID and name are required' }
+  const {
+    data: { user }
+  } = await supabase.auth.getUser()
+
+  if (user == null) {
+    return { error: 'No user authenticated' }
   }
 
   const { error } = await supabase
     .from('profiles')
-    .update({ name: data.name })
-    .eq('id', profileId)
+    .update(profile)
+    .eq('id', profile.id)
 
   if (error) {
     return { error: error.message }
