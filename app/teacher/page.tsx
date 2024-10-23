@@ -3,8 +3,9 @@ import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
 import TaskList from '@/components/dashboard/teacher/tasks/task-list'
 import { createClient } from '@/utils/supabase/server'
-import { Toast } from '@/components/toast'
+import { ServerToast } from '@/components/server-toast'
 import { UserList } from '@/components/dashboard/teacher/users/user-list'
+import CreateUserButton from '@/components/dashboard/teacher/users/create-user-button'
 
 export default async function TeacherPage () {
   const supabase = createClient()
@@ -12,7 +13,7 @@ export default async function TeacherPage () {
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
-    return <Toast error="No user authenticated" redirect="/login" />
+    return <ServerToast error="No user authenticated" redirect="/login" />
   }
 
   const { data: profiles, error: profilesError } = await supabase
@@ -26,9 +27,9 @@ export default async function TeacherPage () {
     .single()
 
   if (!role || roleError) {
-    return <Toast error="Role error" redirect="/" />
+    return <ServerToast error="Role error" redirect="/" />
   } else if (role.role !== 'teacher') {
-    return <Toast error="Only teachers can access this page" redirect="/" />
+    return <ServerToast error="Only teachers can access this page" redirect="/" />
   }
 
   return (
@@ -38,7 +39,8 @@ export default async function TeacherPage () {
           <h2 className="text-3xl font-bold">Tareas Pendientes</h2>
           <Link href="/dashboard/tasks/create">
             <Button>
-              <Plus className="mr-2 h-4 w-4" /> Crear Tarea
+              <Plus/>
+              Crear Tarea
             </Button>
           </Link>
         </div>
@@ -50,15 +52,18 @@ export default async function TeacherPage () {
           <h2 className="text-3xl font-bold">Horario Semanal</h2>
           <Link href="/dashboard/classes/create">
             <Button>
-              <Plus className="mr-2 h-4 w-4" /> Crear clase
+              <Plus/>
+              Crear clase
             </Button>
           </Link>
         </div>
       </section>
 
       <section>
-        <h2 className="text-3xl font-bold mb-4">Usuarios</h2>
-
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-3xl font-bold">Usuarios</h2>
+          <CreateUserButton />
+        </div>
         <UserList profiles={profiles || []} />
       </section>
     </div>

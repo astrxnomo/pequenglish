@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import TaskItem from './task-item'
 import { type Task } from '@/types/custom'
-import { Toast } from '@/components/toast'
+import { ServerToast } from '@/components/server-toast'
 import { TaskListSkeleton } from './task-list-skeleton'
 import { createClient } from '@/utils/supabase/client'
 
@@ -33,7 +33,7 @@ export default function TaskListClient () {
   }, [])
 
   if (loading) return <TaskListSkeleton />
-  if (error) return <Toast error={error}/>
+  if (error) return <ServerToast error={error}/>
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

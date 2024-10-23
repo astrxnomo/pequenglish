@@ -12,7 +12,7 @@ interface ServerToastProps {
   variant?: 'default' | 'destructive'
 }
 
-export function Toast ({
+export function ServerToast ({
   error,
   success,
   redirect,

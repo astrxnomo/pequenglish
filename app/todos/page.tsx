@@ -1,3 +1,4 @@
+import { ServerToast } from '@/components/server-toast'
 import { TodoList } from '@/components/todo-list'
 import { Separator } from '@/components/ui/separator'
 import { createClient } from '@/utils/supabase/server'
@@ -11,7 +12,7 @@ export default async function TodosPage () {
   } = await supabase.auth.getUser()
 
   if (!user) {
-    return redirect('/login')
+    return <ServerToast error='No user authenticated' redirect='/login'/>
   }
 
   const { data: todos } = await supabase
