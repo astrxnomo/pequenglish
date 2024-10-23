@@ -6,8 +6,9 @@ import { type Task } from '@/types/custom'
 import { ServerToast } from '@/components/server-toast'
 import { TaskListSkeleton } from './task-list-skeleton'
 import { createClient } from '@/utils/supabase/client'
+import { Card, CardContent } from '@/components/ui/card'
 
-export default function TaskListClient () {
+export default function TaskList () {
   const [tasks, setTasks] = useState<Task[] | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -21,7 +22,7 @@ export default function TaskListClient () {
         .order('due_date', { ascending: true })
 
       if (error) {
-        setError('Error loading tasks')
+        setError(error.message)
       } else {
         setTasks(tasks)
       }
@@ -35,11 +36,23 @@ export default function TaskListClient () {
   if (loading) return <TaskListSkeleton />
   if (error) return <ServerToast error={error}/>
 
+  if (!tasks || tasks.length === 0) {
+    return (
+      <Card className='p-5'>
+        <CardContent className="p-6 text-center text-gray-500">
+          No tienes tareas
+        </CardContent>
+      </Card>
+    )
+  }
+
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {tasks?.map((task) => (
+      {(
+        tasks?.map((task) => (
         <TaskItem key={task.id} task={task} />
-      ))}
+        ))
+      )}
     </div>
   )
 }
