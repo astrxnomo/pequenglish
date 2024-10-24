@@ -1,38 +1,44 @@
+// signout-form.tsx
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useFormState, useFormStatus } from 'react-dom'
 import { Button } from '@/components/ui/button'
 import { signOut } from '@/app/login/actions'
-import { useToastContext } from '@/contexts/toast-context'
+import { useEffect } from 'react'
+import { useToast } from '@/hooks/use-toast'
 
-export default function SignOutForm () {
-  const router = useRouter()
-  const { showToast } = useToastContext()
+const initialState = {
+  message: '',
+  success: false
+}
 
-  const [loading, setLoading] = useState(false)
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setLoading(true)
-
-    const result = await signOut()
-
-    if (result?.error) {
-      showToast({ type: 'error', message: result.error })
-    } else if (result?.success) {
-      showToast({ type: 'success', message: result.success })
-    }
-    router.push('/')
-
-    setLoading(false)
-  }
+function SignOutButton () {
+  const { pending } = useFormStatus()
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-2">
-      <Button type="submit" disabled={loading}>
-        Sign Out
-      </Button>
+    <Button type="submit" className="w-full" disabled={pending}>
+      {pending ? 'Signing out...' : 'Sign out'}
+    </Button>
+  )
+}
+
+export default function SignOutForm () {
+  const [state, formAction] = useFormState(signOut, initialState)
+  const { toast } = useToast()
+
+  useEffect(() => {
+    if (state.message) {
+      toast({
+        title: state.success ? 'Success' : 'Error',
+        description: state.message,
+        variant: state.success ? 'default' : 'destructive'
+      })
+    }
+  }, [state, toast])
+
+  return (
+    <form action={formAction}>
+      <SignOutButton />
     </form>
   )
 }

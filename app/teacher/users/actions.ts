@@ -2,26 +2,32 @@
 
 import { createClient } from '@/utils/supabase/server'
 import { type Profile } from '@/types/custom'
-import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 
-export async function createProfile (formData: FormData) {
+export async function createProfile (
+  prevState: {
+    message: string
+    success: boolean
+  },
+  formData: FormData
+) {
   const supabase = createClient({ isAdmin: true })
 
   const email = formData.get('email') as string
   const password = formData.get('password') as string
 
   if (!email || !password) {
-    return { error: 'Both email and password are required' }
+    return { message: 'Both email and password are required', success: false }
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailRegex.test(email)) {
-    return { error: 'Invalid email address' }
+    return { message: 'Invalid email address', success: false }
   }
 
   if (password.length < 6) {
-    return { error: 'Password must be at least 6 characters long' }
+    return { message: 'Password must be at least 6 characters long', success: false }
   }
 
   const { error } = await supabase.auth.admin.createUser({
@@ -31,10 +37,10 @@ export async function createProfile (formData: FormData) {
   })
 
   if (error) {
-    return { error: error.message }
+    return { message: error.message, success: false }
   }
-
-  return { success: 'Profile created successfully' }
+  revalidatePath('/teacher')
+  redirect('/teacher')
 }
 
 export async function updateProfile (profile: Profile) {
@@ -57,5 +63,5 @@ export async function updateProfile (profile: Profile) {
     return { error: error.message }
   }
 
-  return { success: 'Profile updated successfully' }
+  redirect('/teacher')
 }

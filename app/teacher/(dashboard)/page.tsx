@@ -7,6 +7,7 @@ import { ServerToast } from '@/components/server-toast'
 import CreateUserDrawer from '@/components/dashboard/teacher/profiles/create-user-drawer'
 import ScheduleTable from '@/components/dashboard/teacher/classes/schedule-table'
 import ProfileList from '@/components/dashboard/teacher/profiles/profile-list'
+import { redirect } from 'next/navigation'
 
 export default async function TeacherPage () {
   const supabase = createClient()
@@ -14,7 +15,7 @@ export default async function TeacherPage () {
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
-    return <ServerToast error="No user authenticated" redirect="/login" />
+    redirect('/login')
   }
 
   const { data: role, error: roleError } = await supabase
@@ -61,7 +62,12 @@ export default async function TeacherPage () {
       <section>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-3xl font-bold">Usuarios</h2>
-          <CreateUserDrawer />
+          <Link href="/teacher/users/create">
+            <Button>
+              <Plus/>
+              Crear usuario
+            </Button>
+          </Link>
         </div>
         <ProfileList/>
       </section>

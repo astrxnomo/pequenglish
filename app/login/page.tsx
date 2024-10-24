@@ -15,7 +15,7 @@ export default async function Login () {
   const { data: { user } } = await supabase.auth.getUser()
 
   if (user) {
-    return redirect('/todos')
+    return redirect('/teacher')
   }
 
   return (
@@ -27,7 +27,7 @@ export default async function Login () {
             Enter your email below to login to your account
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col gap-4">
+        <CardContent>
           <LoginForm />
         </CardContent>
       </Card>
