@@ -27,7 +27,7 @@ export default function RootLayout ({
           <Header />
           <main className="flex flex-col items-center">{children}</main>
           <Toaster />
-          <footer className="flex items-center justify-center border-t text-xs py-6 text-muted-foreground mt-32">
+          <footer className="flex items-center justify-center border-t text-xs py-6 text-muted-foreground">
               <p>
                 Develop by{' '}
                 <a href="" target="_blank" className="font-bold hover:underline" rel="noreferrer">

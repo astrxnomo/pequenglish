@@ -64,7 +64,7 @@ export default function ScheduleTable () {
   return (
     <Card>
       <CardContent className='p-2 pt-0'>
-          <div className="min-w-[200px] md:min-w-[800px]">
+          <div className="min-w-[200px] lg:min-w-[800px]">
             <DaysHeader daysOfWeek={DAYS_OF_WEEK} />
             {HOURS.map((hour) => (
               <div key={hour} className="flex">
