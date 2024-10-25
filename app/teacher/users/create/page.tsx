@@ -8,28 +8,34 @@ import {
 import CreateUserForm from '@/components/dashboard/teacher/profiles/create-user-form'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { ArrowLeft } from 'lucide-react'
 
 export default async function CreateProfilePage () {
   return (
-    <section className="h-[calc(100vh-60px)] flex justify-center items-center">
-      <Card className="mx-auto max-w-sm">
-        <CardHeader>
-          <CardTitle className="text-2xl">Crear usuario</CardTitle>
-          <CardDescription>
-            Ingresa el email y contraseña del usuario a crear
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <CreateUserForm />
-          <div className="mt-4">
-            <Link href="/teacher" passHref>
-              <Button variant="outline" className="w-full">
-                Cancelar
-              </Button>
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
+    <section className="h-[calc(100vh-125px)] flex justify-center items-center">
+
+      <div className="flex flex-col gap-2">
+
+        <Link href="/teacher">
+          <Button variant="outline">
+            <ArrowLeft/>
+            Volver
+          </Button>
+        </Link>
+
+        <Card className="mx-auto max-w-sm">
+          <CardHeader>
+            <CardTitle className="text-2xl">Crear usuario</CardTitle>
+            <CardDescription>
+              Ingresa el email y contraseña del usuario a crear
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <CreateUserForm />
+          </CardContent>
+        </Card>
+      </div>
+
     </section>
   )
 }

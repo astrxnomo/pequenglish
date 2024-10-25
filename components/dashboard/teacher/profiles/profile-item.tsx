@@ -1,6 +1,7 @@
 import { type Profile } from '@/types/custom'
 import { Card, CardContent } from '@/components/ui/card'
-import UpdateProfileDrawer from './update-profile-drawer'
+import { Badge } from '@/components/ui/badge'
+import Link from 'next/link'
 
 export default function UserItem ({ profile }: { profile: Profile }) {
   return (
@@ -10,7 +11,11 @@ export default function UserItem ({ profile }: { profile: Profile }) {
           <h2 className={profile.name ? 'text-xl font-bold' : 'text-xl font-bold text-muted-foreground'}>
             {profile.name ?? 'Sin nombre'}
           </h2>
-          <UpdateProfileDrawer profile={profile}/>
+            <Link href={`/teacher/users/${profile.id}/edit`}>
+              <Badge>
+                Editar
+              </Badge>
+            </Link>
         </div>
         <p className="text-gray-500">{profile.email}</p>
       </CardContent>

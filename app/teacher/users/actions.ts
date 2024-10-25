@@ -1,7 +1,6 @@
 'use server'
 
 import { createClient } from '@/utils/supabase/server'
-import { type Profile } from '@/types/custom'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 
@@ -43,25 +42,31 @@ export async function createProfile (
   redirect('/teacher')
 }
 
-export async function updateProfile (profile: Profile) {
+export async function updateProfile (
+  id: string,
+  prevState: {
+    message: string
+    success: boolean
+  },
+  formData: FormData
+) {
   const supabase = createClient()
 
-  const {
-    data: { user }
-  } = await supabase.auth.getUser()
+  const name = formData.get('name') as string
 
-  if (user == null) {
-    return { error: 'No user authenticated' }
+  if (!id || !name) {
+    return { message: 'ID and name are required', success: false }
   }
 
   const { error } = await supabase
     .from('profiles')
-    .update(profile)
-    .eq('id', profile.id)
+    .update({ name })
+    .eq('id', id)
 
   if (error) {
-    return { error: error.message }
+    return { message: error.message, success: false }
   }
 
+  revalidatePath('/teacher')
   redirect('/teacher')
 }
