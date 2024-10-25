@@ -33,7 +33,7 @@ export default async function TeacherPage () {
     <div className="space-y-10">
       <section>
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-3xl font-bold">Tareas Pendientes</h2>
+          <h2 className="text-3xl font-bold">Tareas</h2>
           <Link href="/dashboard/tasks/create">
             <Button>
               <Plus/>
