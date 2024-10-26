@@ -20,10 +20,10 @@ export function TaskSkeleton () {
   )
 }
 
-export function TaskListSkeleton () {
+export function TaskListSkeleton ({ count }: { count: number }) {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {[...Array(3)].map((_, index) => (
+      {[...Array(count)].map((_, index) => (
         <TaskSkeleton key={index} />
       ))}
     </div>

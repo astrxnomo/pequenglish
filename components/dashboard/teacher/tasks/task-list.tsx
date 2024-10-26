@@ -8,7 +8,8 @@ import { TaskListSkeleton } from './task-list-skeleton'
 import { createClient } from '@/utils/supabase/client'
 import { Card, CardContent } from '@/components/ui/card'
 
-export default function TaskList () {
+export default function TaskList ({ isTeacher, count }: { isTeacher: boolean, count: number }) {
+  const taskCount = count === 0 ? 9 : count
   const [tasks, setTasks] = useState<Task[] | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -19,7 +20,8 @@ export default function TaskList () {
       const { data: tasks, error } = await supabase
         .from('tasks')
         .select('*, profiles(name)')
-        .order('due_date', { ascending: true })
+        .order('due_date', { ascending: false })
+        .limit(taskCount)
 
       console.log(tasks)
       if (error) {
@@ -32,9 +34,9 @@ export default function TaskList () {
     }
 
     fetchTasks()
-  }, [])
+  }, [taskCount])
 
-  if (loading) return <TaskListSkeleton />
+  if (loading) return <TaskListSkeleton count={taskCount} />
   if (error) return <ServerToast error={error}/>
 
   if (!tasks || tasks.length === 0) {
@@ -51,7 +53,7 @@ export default function TaskList () {
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {(
         tasks?.map((task) => (
-        <TaskItem key={task.id} task={task} />
+        <TaskItem key={task.id} task={task} isTeacher={isTeacher}/>
         ))
       )}
     </div>

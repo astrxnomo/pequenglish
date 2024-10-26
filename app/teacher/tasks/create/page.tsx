@@ -10,6 +10,8 @@ import { createTask } from '@/app/teacher/tasks/actions'
 import { useFormState, useFormStatus } from 'react-dom'
 import { useToast } from '@/hooks/use-toast'
 import { type Profile } from '@/types/custom'
+import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
 
 const initialState = {
   message: '',
@@ -27,7 +29,7 @@ function CreateTaskButton () {
 }
 
 export default function CreateTaskPage () {
-  const [students, setStudents] = useState([] as Profile[])
+  const [students, setStudents] = useState<Profile[]>([])
   const [state, formAction] = useFormState(createTask, initialState)
   const { toast } = useToast()
 
@@ -36,24 +38,20 @@ export default function CreateTaskPage () {
       const supabase = createClient()
       const { data, error } = await supabase
         .from('profiles')
-        .select(`
-            id,
-            name,
-            users_role (
-              role
-            )
-          `)
+        .select('id, name, users_role!inner(role)')
+        .eq('users_role.role', 'student')
 
-      console.log(data)
       if (error) {
         console.error('Error fetching students:', error)
       } else {
-        setStudents(data)
+        setStudents(data as Profile[])
       }
     }
 
     fetchStudents()
   }, [])
+
+  console.log(students)
 
   useEffect(() => {
     if (state?.message) {
@@ -66,7 +64,14 @@ export default function CreateTaskPage () {
   }, [state, toast])
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto my-10 flex flex-col gap-2">
+
+      <Link href="/teacher/tasks">
+        <Button variant="outline">
+          <ArrowLeft/>
+          Volver
+        </Button>
+      </Link>
       <Card>
         <CardHeader>
           <CardTitle>Crear Nueva Tarea</CardTitle>
