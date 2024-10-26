@@ -61,7 +61,20 @@ export async function updateSession (request: NextRequest) {
     }
   )
 
-  await supabase.auth.getUser()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  const { data: role } = await supabase
+    .from('users_role')
+    .select('user_id, role')
+    .eq('user_id', user?.id)
+    .single()
+
+  if (request.nextUrl.pathname.startsWith('/teacher')) {
+    if (role?.role !== 'teacher') {
+      const url = new URL('/', request.url)
+      return NextResponse.redirect(url)
+    }
+  }
 
   return response
 }
