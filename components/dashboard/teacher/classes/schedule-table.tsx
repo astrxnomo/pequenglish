@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
-import { format } from 'date-fns'
+import moment from 'moment'
 import { createClient } from '@/utils/supabase/client'
 import { type Class, type Profile } from '@/types/custom'
 import DaysHeader from './days-header'
@@ -14,9 +14,8 @@ export const DAYS_OF_WEEK = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes
 export const HOURS = Array.from({ length: 14 }, (_, i) => i + 8)
 
 const formatHour = (hour: number) => {
-  const date = new Date()
-  date.setHours(hour)
-  return format(date, 'h aaa').toUpperCase()
+  const date = moment().hour(hour).minute(0).second(0)
+  return date.format('h A').toUpperCase()
 }
 
 export default function ScheduleTable () {
