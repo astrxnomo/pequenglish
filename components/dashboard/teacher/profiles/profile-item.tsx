@@ -5,13 +5,11 @@ import { Badge } from '@/components/ui/badge'
 import { type Profile } from '@/types/custom'
 
 export default function UserItem ({ profile }: { profile: Profile }) {
-  const role = profile.users_role[0]?.role
-
   return (
     <Card>
       <CardContent className="p-6 flex flex-col">
           <p className='text-sm text-gray-500'>
-            {role === 'teacher' ? 'Profesor' : 'Estudiante'}
+            {profile.users_role[0].role === 'teacher' ? 'Profesor/a' : 'Estudiante'}
           </p>
         <div className="inline-flex gap-2 items-center">
           <h2 className={profile.name ? 'text-xl font-bold' : 'text-xl font-bold text-muted-foreground'}>
