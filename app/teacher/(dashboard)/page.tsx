@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Plus } from 'lucide-react'
+import { Plus, Settings } from 'lucide-react'
 import TaskList from '@/components/dashboard/teacher/tasks/task-list'
 import { createClient } from '@/utils/supabase/server'
 import { ServerToast } from '@/components/server-toast'
@@ -34,23 +34,23 @@ export default async function TeacherPage () {
       <section>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-3xl font-bold">Tareas</h2>
-          <Link href="/teacher/tasks/create">
+          <Link href="/teacher/tasks">
             <Button>
-              <Plus/>
-              Crear Tarea
+              <Settings/>
+              Gestionar tareas
             </Button>
           </Link>
         </div>
-          <TaskList />
+          <TaskList isTeacher={true} count={3}/>
       </section>
 
       <section>
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-3xl font-bold">Horario Semanal</h2>
-          <Link href="/dashboard/classes/create">
+          <h2 className="text-3xl font-bold">Horario</h2>
+          <Link href="/teacher/classes/create">
             <Button>
-              <Plus/>
-              Crear clase
+              <Settings/>
+              Gestionar clases
             </Button>
           </Link>
         </div>
