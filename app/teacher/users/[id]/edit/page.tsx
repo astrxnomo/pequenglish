@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
 import EditProfileForm from '@/components/dashboard/teacher/profiles/edit-profile-form'
 import { createClient } from '@/utils/supabase/server'
+import { type Profile } from '@/types/custom'
 
 export default async function Page (props: { params: { id: string } }) {
   const { id } = props.params
@@ -60,7 +61,7 @@ export default async function Page (props: { params: { id: string } }) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <EditProfileForm profile={profile} />
+            <EditProfileForm profile={profile as Profile} />
           </CardContent>
         </Card>
       </div>
