@@ -19,7 +19,7 @@ export default function ProfileList () {
 
       const { data: profiles, error } = await supabase
         .from('profiles')
-        .select()
+        .select('*, users_role(role)')
         .order('created_at', { ascending: false })
 
       if (error) {

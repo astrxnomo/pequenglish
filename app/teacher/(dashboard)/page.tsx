@@ -34,7 +34,7 @@ export default async function TeacherPage () {
       <section>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-3xl font-bold">Tareas</h2>
-          <Link href="/dashboard/tasks/create">
+          <Link href="/teacher/tasks/create">
             <Button>
               <Plus/>
               Crear Tarea

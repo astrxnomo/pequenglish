@@ -12,10 +12,7 @@ import { ArrowLeft } from 'lucide-react'
 
 export default async function CreateProfilePage () {
   return (
-    <section className="h-[calc(100vh-125px)] flex justify-center items-center">
-
       <div className="flex flex-col gap-2">
-
         <Link href="/teacher">
           <Button variant="outline">
             <ArrowLeft/>
@@ -35,7 +32,5 @@ export default async function CreateProfilePage () {
           </CardContent>
         </Card>
       </div>
-
-    </section>
   )
 }

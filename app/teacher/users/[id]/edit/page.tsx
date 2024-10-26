@@ -24,7 +24,6 @@ export default async function Page (props: { params: { id: string } }) {
 
   if (error) {
     return (
-    <section className="h-[calc(100vh-125px)] flex justify-center items-center">
         <div className="flex flex-col gap-2">
         <Link href="/teacher">
             <Button variant="outline">
@@ -41,12 +40,11 @@ export default async function Page (props: { params: { id: string } }) {
             </CardHeader>
         </Card>
         </div>
-    </section>
     )
   }
 
   return (
-    <section className="h-[calc(100vh-125px)] flex justify-center items-center">
+
       <div className="flex flex-col gap-2">
         <Link href="/teacher">
           <Button variant="outline">
@@ -66,6 +64,5 @@ export default async function Page (props: { params: { id: string } }) {
           </CardContent>
         </Card>
       </div>
-    </section>
   )
 }
