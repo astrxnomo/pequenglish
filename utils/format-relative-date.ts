@@ -1,22 +1,28 @@
-import { format, isToday, isTomorrow, isYesterday, isThisWeek, parseISO } from 'date-fns'
-import { es } from 'date-fns/locale'
+import moment from 'moment'
+import 'moment/locale/es'
 
-function capitalizeFirstLetter (string: string): string {
-  return string.charAt(0).toUpperCase() + string.slice(1)
-}
+moment.locale('es')
 
 export function formatRelativeDate (dateString: string): string {
-  const date = parseISO(dateString)
+  const date = moment.utc(dateString)
+  const now = moment.utc()
 
-  if (isToday(date)) {
+  if (date.isSame(now, 'day')) {
     return 'Hoy'
-  } else if (isTomorrow(date)) {
-    return 'Mañana'
-  } else if (isYesterday(date)) {
-    return 'Ayer'
-  } else if (isThisWeek(date)) {
-    return capitalizeFirstLetter(format(date, 'EEEE', { locale: es }))
-  } else {
-    return format(date, 'dd/MM/yyyy', { locale: es })
   }
+
+  if (date.isSame(now.clone().subtract(1, 'day'), 'day')) {
+    return 'Ayer'
+  }
+
+  if (date.isSame(now.clone().add(1, 'day'), 'day')) {
+    return 'Mañana'
+  }
+
+  if (date.isSame(now, 'week')) {
+    const dayOfWeek = date.format('dddd')
+    return dayOfWeek.charAt(0).toUpperCase() + dayOfWeek.slice(1)
+  }
+
+  return date.format('DD/MM/YY')
 }
