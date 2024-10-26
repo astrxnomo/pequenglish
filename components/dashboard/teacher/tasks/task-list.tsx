@@ -18,9 +18,10 @@ export default function TaskList () {
       const supabase = createClient()
       const { data: tasks, error } = await supabase
         .from('tasks')
-        .select()
+        .select('*, profiles(name)')
         .order('due_date', { ascending: true })
 
+      console.log(tasks)
       if (error) {
         setError(error.message)
       } else {
