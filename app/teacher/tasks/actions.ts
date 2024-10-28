@@ -34,17 +34,13 @@ export async function createTask (
   redirect('/teacher/tasks')
 }
 
-export async function deleteTask (taskId: string) {
+export async function deleteTask (id: string) {
   const supabase = createClient()
 
-  const { error } = await supabase
+  await supabase
     .from('tasks')
     .delete()
-    .eq('id', taskId)
-
-  if (error) {
-    throw new Error(error.message)
-  }
+    .eq('id', id)
 
   revalidatePath('/teacher/tasks')
 }
