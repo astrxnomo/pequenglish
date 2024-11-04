@@ -3,23 +3,13 @@ import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import SignOutForm from '@/components/auth/signout-form'
 import { Button } from '@/components/ui/button'
-import { User } from 'lucide-react'
+import { Home } from 'lucide-react'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
 
 export default async function Header () {
   const supabase = await createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
-
-  let role
-
-  if (user) {
-    const { data: roleData } = await supabase
-      .from('users_role')
-      .select('user_id, role')
-      .eq('user_id', user.id)
-      .single()
-    role = roleData?.role
-  }
 
   return (
     <header className="z-10 sticky top-0 w-full border-b border-border bg-background">
@@ -33,11 +23,19 @@ export default async function Header () {
           {user
             ? (
             <div className='flex gap-2'>
-              <Link href={role === 'teacher' ? '/dashboard' : '/student'}>
-                <Button variant='outline'>
-                  <User />
-                  Mi cuenta
-                </Button>
+              <Link href='/dashboard'>
+                <TooltipProvider delayDuration={0}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button variant='outline' type="submit" size="icon" aria-label="Crear tarea">
+                        <Home/>
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent className="border border-input bg-popover px-2 py-1 text-xs text-muted-foreground">
+                      Panel principal
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </Link>
               <SignOutForm />
             </div>
