@@ -39,27 +39,30 @@ export async function updateSession (request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  const { data: role, error: roleError } = await supabase
-    .from('users_role')
-    .select('user_id, role')
-    .eq('user_id', user?.id)
-    .single()
+  if (user) {
+    const { data: role, error: roleError } = await supabase
+      .from('users_role')
+      .select('user_id, role')
+      .eq('user_id', user.id)
+      .single()
 
-  if (roleError) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    return NextResponse.redirect(url)
+    if (roleError) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/login'
+      return NextResponse.redirect(url)
+    }
+
+    if (role?.role === 'student' && request.nextUrl.pathname.startsWith('/teacher')) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/student'
+      return NextResponse.redirect(url)
+    } else if (role?.role === 'teacher' && request.nextUrl.pathname.startsWith('/student')) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/teacher'
+      return NextResponse.redirect(url)
+    }
   }
 
-  if (role?.role === 'student' && request.nextUrl.pathname.startsWith('/teacher')) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/student'
-    return NextResponse.redirect(url)
-  } else if (role?.role === 'teacher' && request.nextUrl.pathname.startsWith('/student')) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/teacher'
-    return NextResponse.redirect(url)
-  }
   // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
   // creating a new response object with NextResponse.next() make sure to:
   // 1. Pass the request in it, like so:
