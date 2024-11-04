@@ -14,7 +14,7 @@ export default function ProfileList () {
 
   useEffect(() => {
     const fetchProfiles = async () => {
-      const supabase = await createClient()
+      const supabase = createClient()
 
       const { data: profiles, error } = await supabase
         .from('profiles')

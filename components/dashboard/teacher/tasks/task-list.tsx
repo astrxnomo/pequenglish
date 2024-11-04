@@ -1,6 +1,3 @@
-// 'use client'
-
-// import { useEffect, useState } from 'react'
 import { cache } from 'react'
 import TaskItem from './task-item'
 import { createClient } from '@/utils/supabase/server'
