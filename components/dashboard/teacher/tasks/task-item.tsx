@@ -52,7 +52,7 @@ export default function TaskItem ({ task, isTeacher }: { task: Task, isTeacher: 
                       <form action={deleteTaskWithId}>
                         <AlertDialogAction
                           type='submit'
-                          className="bg-red-600 hover:bg-red-700 focus:ring-red-500 w-full"
+                          className="bg-red-500 hover:bg-red-700 focus:ring-red-500 w-full"
                         >
                           <Trash/>
                           Eliminar
