@@ -20,7 +20,7 @@ export default async function TeacherPage () {
             </Button>
           </Link>
         </div>
-        <Suspense fallback={<TaskListSkeleton />}>
+        <Suspense fallback={<TaskListSkeleton count={6} />}>
           <TaskList isTeacher={true} />
         </Suspense>
       </section>
