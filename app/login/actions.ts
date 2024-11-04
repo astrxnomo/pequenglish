@@ -47,7 +47,7 @@ export async function login (
     }
   }
 
-  redirect('/teacher')
+  redirect('/dashboard')
 }
 
 export async function signOut () {

@@ -12,7 +12,7 @@ import BackButton from '@/components/back-button'
 export default async function CreateProfilePage () {
   return (
       <div className="flex flex-col gap-2">
-        <Link href="/teacher">
+        <Link href="/dashboard">
           <BackButton/>
         </Link>
 

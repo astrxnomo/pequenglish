@@ -4,7 +4,7 @@ import { Calendar, Pencil, Trash, User } from 'lucide-react'
 import Link from 'next/link'
 import { formatRelativeDate } from '@/utils/format-relative-date'
 import { Button } from '@/components/ui/button'
-import { deleteTask } from '@/app/teacher/tasks/actions'
+import { deleteTask } from '@/app/dashboard/tasks/actions'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 
 export default function TaskItem ({ task, isTeacher }: { task: Task, isTeacher: boolean }) {
@@ -18,13 +18,13 @@ export default function TaskItem ({ task, isTeacher }: { task: Task, isTeacher: 
         <CardHeader className="flex bg-gray-50 p-3 rounded-t-lg">
 
           <CardTitle className="flex justify-between items-center text-lg font-semibold text-primary">
-            <Link href={`/teacher/tasks/${task.id}`}>
+            <Link href={`/dashboard/tasks/${task.id}`}>
               <span className="mr-2 whitespace-nowrap overflow-hidden text-ellipsis">{task.title}</span>
             </Link>
 
             {isTeacher && (
               <div className="flex gap-1">
-                <Link href={`/teacher/tasks/${task.id}/edit`}>
+                <Link href={`/dashboard/tasks/${task.id}/edit`}>
                   <Button className="px-2 py-1 rounded-md bg-slate-100 text-primary hover:bg-slate-200" size="sm">
                     <Pencil className="w-4 h-4" />
                   </Button>
@@ -66,7 +66,7 @@ export default function TaskItem ({ task, isTeacher }: { task: Task, isTeacher: 
           </CardTitle>
         </CardHeader>
 
-        <Link href={`/teacher/tasks/${task.id}`}>
+        <Link href={`/dashboard/tasks/${task.id}`}>
           <CardContent className="p-4 flex justify-between items-center text-sm">
             <div className="flex flex-col text-gray-500">
               {isTeacher && (

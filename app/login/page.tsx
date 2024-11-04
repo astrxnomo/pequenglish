@@ -15,7 +15,7 @@ export default async function Login () {
   const { data: { user } } = await supabase.auth.getUser()
 
   if (user) {
-    return redirect('/teacher')
+    return redirect('/dashboard')
   }
 
   return (

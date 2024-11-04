@@ -30,8 +30,8 @@ export async function createTask (
     return { message: error.message, success: false }
   }
 
-  revalidatePath('/teacher/tasks')
-  redirect('/teacher/tasks')
+  revalidatePath('/dashboard/tasks')
+  redirect('/dashboard/tasks')
 }
 
 export async function deleteTask (id: string) {
@@ -42,5 +42,5 @@ export async function deleteTask (id: string) {
     .delete()
     .eq('id', id)
 
-  revalidatePath('/teacher/tasks')
+  revalidatePath('/dashboard/tasks')
 }

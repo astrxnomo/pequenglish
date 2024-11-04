@@ -33,32 +33,15 @@ export async function updateSession (request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!user && !request.nextUrl.pathname.startsWith('/login') && !request.nextUrl.pathname.startsWith('/')) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    return NextResponse.redirect(url)
-  }
-
-  if (user) {
-    const { data: role, error: roleError } = await supabase
-      .from('users_role')
-      .select('user_id, role')
-      .eq('user_id', user.id)
-      .single()
-
-    if (roleError) {
+  if (!user) {
+    if (request.nextUrl.pathname.startsWith('/dashboard')) {
       const url = request.nextUrl.clone()
       url.pathname = '/login'
       return NextResponse.redirect(url)
     }
-
-    if (role?.role === 'student' && request.nextUrl.pathname.startsWith('/teacher')) {
+    if (!request.nextUrl.pathname.startsWith('/login') && !request.nextUrl.pathname.startsWith('/')) {
       const url = request.nextUrl.clone()
-      url.pathname = '/student'
-      return NextResponse.redirect(url)
-    } else if (role?.role === 'teacher' && request.nextUrl.pathname.startsWith('/student')) {
-      const url = request.nextUrl.clone()
-      url.pathname = '/teacher'
+      url.pathname = '/login'
       return NextResponse.redirect(url)
     }
   }

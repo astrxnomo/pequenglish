@@ -33,7 +33,7 @@ export default async function Header () {
           {user
             ? (
             <div className='flex gap-2'>
-              <Link href={role === 'teacher' ? '/teacher' : '/student'}>
+              <Link href={role === 'teacher' ? '/dashboard' : '/student'}>
                 <Button variant='outline'>
                   <User />
                   Mi cuenta

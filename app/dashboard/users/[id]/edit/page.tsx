@@ -28,7 +28,7 @@ export default async function Page ({
   if (error) {
     return (
         <div className="flex flex-col gap-2">
-        <Link href="/teacher">
+        <Link href="/dashboard">
           <BackButton/>
         </Link>
         <Card className="mx-auto max-w-sm">
@@ -46,7 +46,7 @@ export default async function Page ({
   return (
 
       <div className="flex flex-col gap-2">
-        <Link href="/teacher">
+        <Link href="/dashboard">
           <BackButton/>
         </Link>
         <Card className="mx-auto max-w-sm">

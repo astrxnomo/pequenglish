@@ -15,7 +15,7 @@ export default function UserItem ({ profile }: { profile: Profile }) {
           <h2 className={profile.name ? 'text-xl font-bold' : 'text-xl font-bold text-muted-foreground'}>
             {profile.name ?? 'Sin nombre'}
           </h2>
-          <Link href={`/teacher/users/${profile.id}/edit`}>
+          <Link href={`/dashboard/users/${profile.id}/edit`}>
             <Badge>
               Editar
             </Badge>

@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
 import { createClient } from '@/utils/supabase/client'
-import { createTask } from '@/app/teacher/tasks/actions'
+import { createTask } from '@/app/dashboard/tasks/actions'
 import { type Profile } from '@/types/custom'
 import Link from 'next/link'
 import { LoaderCircle } from 'lucide-react'
@@ -43,7 +43,7 @@ export default function CreateTaskPage () {
 
   return (
     <div className="container mx-auto my-10 flex flex-col gap-2">
-      <Link href="/teacher/tasks">
+      <Link href="/dashboard/tasks">
         <BackButton/>
       </Link>
       <Card>

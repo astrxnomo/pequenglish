@@ -38,8 +38,8 @@ export async function createProfile (
   if (error) {
     return { message: error.message, success: false }
   }
-  revalidatePath('/teacher')
-  redirect('/teacher')
+  revalidatePath('/dashboard')
+  redirect('/dashboard')
 }
 
 export async function updateProfile (
@@ -67,6 +67,6 @@ export async function updateProfile (
     return { message: error.message, success: false }
   }
 
-  revalidatePath('/teacher')
-  redirect('/teacher')
+  revalidatePath('/dashboard')
+  redirect('/dashboard')
 }
