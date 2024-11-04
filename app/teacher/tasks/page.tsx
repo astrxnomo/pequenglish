@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, Plus } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import TaskList from '@/components/dashboard/teacher/tasks/task-list'
 import { Suspense } from 'react'
 import { TaskListSkeleton } from '@/components/dashboard/teacher/tasks/task-list-skeleton'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import BackButton from '@/components/back-button'
 
 export default async function TasksPage () {
   const taskCount = 6
@@ -16,16 +18,21 @@ export default async function TasksPage () {
 
           <div className='flex gap-2'>
             <Link href="/teacher">
-              <Button variant='outline'>
-                <ArrowLeft/>
-                Volver
-              </Button>
+              <BackButton/>
             </Link>
             <Link href="/teacher/tasks/create">
-              <Button>
-                <Plus/>
-                Crear tarea
-              </Button>
+              <TooltipProvider delayDuration={0}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button size="icon" aria-label="Crear tarea">
+                      <Plus size={16} strokeWidth={2} aria-hidden="true" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent className="border border-input bg-popover px-2 py-1 text-xs text-muted-foreground">
+                    Crear tarea
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </Link>
           </div>
         </div>

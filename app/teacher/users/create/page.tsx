@@ -7,17 +7,13 @@ import {
 } from '@/components/ui/card'
 import CreateUserForm from '@/components/dashboard/teacher/profiles/create-user-form'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { ArrowLeft } from 'lucide-react'
+import BackButton from '@/components/back-button'
 
 export default async function CreateProfilePage () {
   return (
       <div className="flex flex-col gap-2">
         <Link href="/teacher">
-          <Button variant="outline">
-            <ArrowLeft/>
-            Volver
-          </Button>
+          <BackButton/>
         </Link>
 
         <Card className="mx-auto max-w-sm">

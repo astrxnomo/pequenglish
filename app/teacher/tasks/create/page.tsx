@@ -9,8 +9,9 @@ import { createClient } from '@/utils/supabase/client'
 import { createTask } from '@/app/teacher/tasks/actions'
 import { type Profile } from '@/types/custom'
 import Link from 'next/link'
-import { ArrowLeft, LoaderCircle } from 'lucide-react'
+import { LoaderCircle } from 'lucide-react'
 import { toast } from 'sonner'
+import BackButton from '@/components/back-button'
 
 export default function CreateTaskPage () {
   const [students, setStudents] = useState<Profile[]>([])
@@ -43,10 +44,7 @@ export default function CreateTaskPage () {
   return (
     <div className="container mx-auto my-10 flex flex-col gap-2">
       <Link href="/teacher/tasks">
-        <Button variant="outline">
-          <ArrowLeft/>
-          Volver
-        </Button>
+        <BackButton/>
       </Link>
       <Card>
         <CardHeader>

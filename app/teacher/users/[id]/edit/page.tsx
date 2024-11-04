@@ -6,11 +6,10 @@ import {
   CardDescription
 } from '@/components/ui/card'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { ArrowLeft } from 'lucide-react'
 import EditProfileForm from '@/components/dashboard/teacher/profiles/edit-profile-form'
 import { createClient } from '@/utils/supabase/server'
 import { type Profile } from '@/types/custom'
+import BackButton from '@/components/back-button'
 
 export default async function Page ({
   params
@@ -30,10 +29,7 @@ export default async function Page ({
     return (
         <div className="flex flex-col gap-2">
         <Link href="/teacher">
-            <Button variant="outline">
-            <ArrowLeft />
-            Volver
-            </Button>
+          <BackButton/>
         </Link>
         <Card className="mx-auto max-w-sm">
             <CardHeader>
@@ -51,10 +47,7 @@ export default async function Page ({
 
       <div className="flex flex-col gap-2">
         <Link href="/teacher">
-          <Button variant="outline">
-            <ArrowLeft />
-            Volver
-          </Button>
+          <BackButton/>
         </Link>
         <Card className="mx-auto max-w-sm">
           <CardHeader>
