@@ -26,7 +26,7 @@ export default function SignOutForm () {
               {isPending ? <LoaderCircle className='animate-spin'/> : <LogOut />}
             </Button>
           </TooltipTrigger>
-          <TooltipContent className="border border-input bg-popover px-2 py-1 text-xs text-muted-foreground">
+          <TooltipContent className="border border-input bg-popover px-2 py-1 text-xs text-muted-foreground text-red-800">
             Cerrar sesión
           </TooltipContent>
         </Tooltip>
