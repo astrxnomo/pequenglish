@@ -1,61 +1,35 @@
-'use client'
+// 'use client'
 
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
+import { cache } from 'react'
 import TaskItem from './task-item'
+import { createClient } from '@/utils/supabase/server'
 import { type Task } from '@/types/custom'
-import { ServerToast } from '@/components/server-toast'
-import { TaskListSkeleton } from './task-list-skeleton'
-import { createClient } from '@/utils/supabase/client'
-import { Card, CardContent } from '@/components/ui/card'
 
-export default function TaskList ({ isTeacher, count }: { isTeacher: boolean, count: number }) {
-  const taskCount = count === 0 ? 9 : count
-  const [tasks, setTasks] = useState<Task[] | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+const fetchTasks = cache(async () => {
+  const supabase = await createClient()
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      const supabase = createClient()
-      const { data: tasks, error } = await supabase
-        .from('tasks')
-        .select('*, profiles(name)')
-        .order('due_date', { ascending: false })
-        .limit(taskCount)
+  const { data: tasks } = await supabase
+    .from('tasks')
+    .select('*, profiles(name)')
+    .order('due_date', { ascending: false })
+  return tasks as Task[]
+})
 
-      console.log(tasks)
-      if (error) {
-        setError(error.message)
-      } else {
-        setTasks(tasks)
-      }
-
-      setLoading(false)
-    }
-
-    fetchTasks()
-  }, [taskCount])
-
-  if (loading) return <TaskListSkeleton count={taskCount} />
-  if (error) return <ServerToast error={error}/>
-
-  if (!tasks || tasks.length === 0) {
-    return (
-      <Card className='p-5'>
-        <CardContent className="p-6 text-center text-gray-500">
-          No tienes tareas
-        </CardContent>
-      </Card>
-    )
-  }
+export default async function TaskList ({ isTeacher }: { isTeacher: boolean }) {
+  const tasks = await fetchTasks()
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {(
-        tasks?.map((task) => (
-        <TaskItem key={task.id} task={task} isTeacher={isTeacher}/>
-        ))
-      )}
+      {tasks.length
+        ? (
+            tasks.map(task => (
+          <TaskItem key={task.id} task={task} isTeacher={isTeacher} />
+            ))
+          )
+        : (
+        <div className="text-center">No hay tareas</div>
+          )}
     </div>
   )
 }

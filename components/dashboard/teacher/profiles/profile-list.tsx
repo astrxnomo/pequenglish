@@ -3,19 +3,18 @@
 import { useEffect, useState } from 'react'
 import { type Profile } from '@/types/custom'
 import { Card, CardContent } from '@/components/ui/card'
-import { ServerToast } from '@/components/server-toast'
 import { createClient } from '@/utils/supabase/client'
 import { UserListSkeleton } from './profile-list-skeleton'
 import ProfileItem from './profile-item'
+import { toast } from 'sonner'
 
 export default function ProfileList () {
   const [profiles, setProfiles] = useState<Profile[] | null>(null)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchProfiles = async () => {
-      const supabase = createClient()
+      const supabase = await createClient()
 
       const { data: profiles, error } = await supabase
         .from('profiles')
@@ -23,7 +22,7 @@ export default function ProfileList () {
         .order('created_at', { ascending: false })
 
       if (error) {
-        setError(error.message)
+        toast.error(error.message)
       } else {
         setProfiles(profiles)
       }
@@ -35,7 +34,6 @@ export default function ProfileList () {
   }, [])
 
   if (loading) return <UserListSkeleton />
-  if (error) return <ServerToast error={error} />
 
   if (!profiles || profiles.length === 0) {
     return (

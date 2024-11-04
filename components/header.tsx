@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { User } from 'lucide-react'
 
 export default async function Header () {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
 

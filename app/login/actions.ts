@@ -11,39 +11,55 @@ export async function login (
   },
   formData: FormData
 ) {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const email = formData.get('email') as string
   const password = formData.get('password') as string
 
   if (!email || !password) {
-    return { message: 'Both email and password are required', success: false }
+    return {
+      success: false,
+      message: 'Both email and password are required'
+    }
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailRegex.test(email)) {
-    return { message: 'Invalid email address', success: false }
+    return {
+      success: false,
+      message: 'Invalid email address'
+    }
   }
 
   if (password.length < 6) {
-    return { message: 'Password must be at least 6 characters long', success: false }
+    return {
+      success: false,
+      message: 'Password must be at least 6 characters long'
+    }
   }
 
   const { error } = await supabase.auth.signInWithPassword({ email, password })
 
   if (error) {
-    return { message: error.message, success: false }
+    return {
+      success: false,
+      message: error.message
+    }
   }
 
   redirect('/teacher')
 }
 
 export async function signOut () {
-  const supabase = createClient()
+  const supabase = await createClient()
+
   const { error } = await supabase.auth.signOut()
 
   if (error) {
-    return { message: error.message, success: false }
+    return {
+      success: false,
+      message: error.message
+    }
   }
 
   redirect('/')

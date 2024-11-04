@@ -2,7 +2,10 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, Plus } from 'lucide-react'
 import TaskList from '@/components/dashboard/teacher/tasks/task-list'
-export default async function TeacherPage () {
+import { Suspense } from 'react'
+import { TaskListSkeleton } from '@/components/dashboard/teacher/tasks/task-list-skeleton'
+
+export default async function TasksPage () {
   return (
     <div className="space-y-10">
       <section>
@@ -24,7 +27,9 @@ export default async function TeacherPage () {
             </Link>
           </div>
         </div>
-          <TaskList isTeacher={true} count={0} />
+        <Suspense fallback={<TaskListSkeleton count={6} />}>
+          <TaskList isTeacher={true} />
+        </Suspense>
       </section>
     </div>
   )

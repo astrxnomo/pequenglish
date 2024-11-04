@@ -16,7 +16,7 @@ export default async function Page (props: { params: { id: string } }) {
   const { id } = props.params
 
   console.log(id)
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: profile, error } = await supabase
     .from('profiles')
     .select('*')

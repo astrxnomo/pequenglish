@@ -11,7 +11,7 @@ export async function createTask (
   },
   formData: FormData
 ) {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const title = formData.get('title') as string
   const content = formData.get('content') as string
@@ -35,7 +35,7 @@ export async function createTask (
 }
 
 export async function deleteTask (id: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   await supabase
     .from('tasks')

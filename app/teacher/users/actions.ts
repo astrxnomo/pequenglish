@@ -11,7 +11,7 @@ export async function createProfile (
   },
   formData: FormData
 ) {
-  const supabase = createClient({ isAdmin: true })
+  const supabase = await createClient({ isAdmin: true })
 
   const email = formData.get('email') as string
   const password = formData.get('password') as string
@@ -50,7 +50,7 @@ export async function updateProfile (
   },
   formData: FormData
 ) {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const name = formData.get('name') as string
 
