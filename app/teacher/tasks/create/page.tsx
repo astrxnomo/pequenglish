@@ -18,7 +18,7 @@ export default function CreateTaskPage () {
 
   useEffect(() => {
     async function fetchStudents () {
-      const supabase = await createClient()
+      const supabase = createClient()
       const { data, error } = await supabase
         .from('profiles')
         .select('id, name, users_role!inner(role)')

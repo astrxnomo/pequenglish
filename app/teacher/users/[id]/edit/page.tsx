@@ -12,14 +12,17 @@ import EditProfileForm from '@/components/dashboard/teacher/profiles/edit-profil
 import { createClient } from '@/utils/supabase/server'
 import { type Profile } from '@/types/custom'
 
-export default async function Page (props: { params: { id: string } }) {
-  const { id } = props.params
+export default async function Page ({
+  params
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const id = (await params).id
 
-  console.log(id)
   const supabase = await createClient()
   const { data: profile, error } = await supabase
     .from('profiles')
-    .select('*')
+    .select()
     .eq('id', id)
     .single()
 

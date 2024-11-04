@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 
-export function TaskListSkeleton () {
+function TaskSkeleton () {
   return (
     <Card className="transition-shadow hover:shadow-lg rounded-lg border border-gray-200">
       <CardHeader className="flex bg-gray-50 p-4 rounded-t-lg">
@@ -17,5 +17,15 @@ export function TaskListSkeleton () {
         </div>
       </CardContent>
     </Card>
+  )
+}
+
+export function TaskListSkeleton ({ count }: { count: number }) {
+  return (
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {[...Array(count)].map((_, index) => (
+        <TaskSkeleton key={index} />
+      ))}
+    </div>
   )
 }
