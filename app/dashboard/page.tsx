@@ -1,16 +1,16 @@
-import ScheduleTable from '@/components/dashboard/teacher/classes/schedule-table'
-import ProfileList from '@/components/dashboard/teacher/profiles/profile-list'
+import ScheduleTable from '@/components/dashboard/classes/schedule-table'
+import ProfileList from '@/components/dashboard/profiles/profile-list'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { LayoutGrid, Plus, Settings } from 'lucide-react'
-import TaskList from '@/components/dashboard/teacher/tasks/task-list'
+import TaskList from '@/components/dashboard/tasks/task-list'
 import { Suspense } from 'react'
-import { TaskListSkeleton } from '@/components/dashboard/teacher/tasks/task-list-skeleton'
-import { ProfileListSkeleton } from '@/components/dashboard/teacher/profiles/profile-list-skeleton'
+import { TaskListSkeleton } from '@/components/dashboard/tasks/task-list-skeleton'
+import { ProfileListSkeleton } from '@/components/dashboard/profiles/profile-list-skeleton'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { createClient } from '@/utils/supabase/server'
 
-export default async function TeacherPage () {
+export default async function DashboardPage () {
   const taskLimit = 3
   let isTeacher = false
 
