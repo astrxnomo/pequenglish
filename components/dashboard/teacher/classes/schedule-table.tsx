@@ -24,7 +24,7 @@ export default function ScheduleTable () {
 
   useEffect(() => {
     const fetchClasses = async () => {
-      const supabase = await createClient()
+      const supabase = createClient()
       const { data: classes, error } = await supabase
         .from('classes')
         .select('*, profiles(name)')

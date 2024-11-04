@@ -6,7 +6,7 @@ export interface ClassItemProps {
 
 export default function ClassItem (classInfo: ClassItemProps) {
   if (!classInfo) {
-    return <div className="flex-1 border-r border-b p-1" /> // Celda vacía si no hay clase
+    return <div className="flex-1 border-r border-b p-1" />
   }
 
   return (
