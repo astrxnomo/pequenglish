@@ -1,44 +1,25 @@
-// signout-form.tsx
 'use client'
 
-import { useFormState, useFormStatus } from 'react-dom'
+import { useActionState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { signOut } from '@/app/login/actions'
-import { useEffect } from 'react'
-import { useToast } from '@/hooks/use-toast'
 
-const initialState = {
-  message: '',
-  success: false
-}
-
-function SignOutButton () {
-  const { pending } = useFormStatus()
-
-  return (
-    <Button type="submit" className="w-full" disabled={pending}>
-      {pending ? 'Signing out...' : 'Sign out'}
-    </Button>
-  )
-}
+import { toast } from 'sonner'
 
 export default function SignOutForm () {
-  const [state, formAction] = useFormState(signOut, initialState)
-  const { toast } = useToast()
+  const [{ message }, formAction, isPending] = useActionState(signOut, { message: '', success: false })
 
   useEffect(() => {
-    if (state.message) {
-      toast({
-        title: state.success ? 'Success' : 'Error',
-        description: state.message,
-        variant: state.success ? 'default' : 'destructive'
-      })
+    if (message) {
+      toast.error(message)
     }
-  }, [state, toast])
+  }, [message])
 
   return (
     <form action={formAction}>
-      <SignOutButton />
+      <Button type="submit" className="w-full" disabled={isPending}>
+        {isPending ? 'Signing out...' : 'Sign out'}
+      </Button>
     </form>
   )
 }

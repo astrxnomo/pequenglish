@@ -1,41 +1,20 @@
 'use client'
+import { useActionState, useEffect } from 'react'
 
-import { useFormState, useFormStatus } from 'react-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { login } from '@/app/login/actions'
-import { useEffect } from 'react'
-import { useToast } from '@/hooks/use-toast'
-
-const initialState = {
-  message: '',
-  success: false
-}
-
-function LoginButton () {
-  const { pending } = useFormStatus()
-
-  return (
-    <Button type="submit" className="w-full" disabled={pending}>
-      {pending ? 'Logging in...' : 'Log in'}
-    </Button>
-  )
-}
+import { toast } from 'sonner'
 
 export default function LoginForm () {
-  const [state, formAction] = useFormState(login, initialState)
-  const { toast } = useToast()
+  const [{ message }, formAction, isPending] = useActionState(login, { success: false, message: '' })
 
   useEffect(() => {
-    if (state.message) {
-      toast({
-        title: state.success ? 'Success' : 'Error',
-        description: state.message,
-        variant: state.success ? 'default' : 'destructive'
-      })
+    if (message) {
+      toast.error(message)
     }
-  }, [state, toast])
+  }, [message])
 
   return (
     <form action={formAction} className="space-y-4">
@@ -47,7 +26,9 @@ export default function LoginForm () {
         <Label htmlFor="password">Password</Label>
         <Input id="password" name="password" type="password" required />
       </div>
-      <LoginButton />
+      <Button type="submit" className="w-full" disabled={isPending}>
+        {isPending ? 'Logging in...' : 'Log in'}
+      </Button>
     </form>
   )
 }

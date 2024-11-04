@@ -8,7 +8,7 @@ import { type Class, type Profile } from '@/types/custom'
 import DaysHeader from './days-header'
 import ScheduleSkeleton from './schedule-skeleton'
 import ClassItem, { type ClassItemProps } from './class-item'
-import { ServerToast } from '@/components/server-toast'
+import { toast } from 'sonner'
 
 export const DAYS_OF_WEEK = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 export const HOURS = Array.from({ length: 14 }, (_, i) => i + 8)
@@ -21,17 +21,16 @@ const formatHour = (hour: number) => {
 export default function ScheduleTable () {
   const [classesMap, setClassesMap] = useState<Record<number, Record<number, ClassItemProps | undefined>> | null>(null)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchClasses = async () => {
-      const supabase = createClient()
+      const supabase = await createClient()
       const { data: classes, error } = await supabase
         .from('classes')
         .select('*, profiles(name)')
 
       if (error) {
-        setError(error.message)
+        toast.error(error.message)
       } else {
         const classesMap = classes?.reduce<Record<number, Record<number, ClassItemProps | undefined>>>((acc, item: Class & { profiles: Profile }) => {
           const day = DAYS_OF_WEEK.indexOf(item.day_of_week)
@@ -58,7 +57,6 @@ export default function ScheduleTable () {
   }, [])
 
   if (loading) return <ScheduleSkeleton />
-  if (error) return <ServerToast error={error}/>
 
   return (
     <Card>

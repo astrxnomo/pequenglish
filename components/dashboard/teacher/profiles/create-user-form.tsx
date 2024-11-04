@@ -1,41 +1,20 @@
 'use client'
 
-import { useFormState, useFormStatus } from 'react-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { createProfile } from '@/app/teacher/users/actions'
-import { useEffect } from 'react'
-import { useToast } from '@/hooks/use-toast'
-
-const initialState = {
-  message: '',
-  success: false
-}
-
-function CreateUserButton () {
-  const { pending } = useFormStatus()
-
-  return (
-    <Button type="submit" className="w-full" disabled={pending}>
-      {pending ? 'Creating user...' : 'Create User'}
-    </Button>
-  )
-}
+import { useActionState, useEffect } from 'react'
+import { toast } from 'sonner'
 
 export default function CreateUserForm () {
-  const [state, formAction] = useFormState(createProfile, initialState)
-  const { toast } = useToast()
+  const [{ message }, formAction, isPending] = useActionState(createProfile, { success: false, message: '' })
 
   useEffect(() => {
-    if (state?.message) {
-      toast({
-        title: state.success ? 'Success' : 'Error',
-        description: state.message,
-        variant: state.success ? 'default' : 'destructive'
-      })
+    if (message) {
+      toast.error(message)
     }
-  }, [state, toast])
+  }, [message])
 
   return (
     <form action={formAction} className="space-y-4">
@@ -47,7 +26,9 @@ export default function CreateUserForm () {
         <Label htmlFor="password">Password</Label>
         <Input id="password" name="password" type="password" required />
       </div>
-      <CreateUserButton />
+      <Button type="submit" className="w-full" disabled={isPending}>
+        {isPending ? 'Creating user...' : 'Create User'}
+      </Button>
     </form>
   )
 }

@@ -1,48 +1,31 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useActionState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
 import { createClient } from '@/utils/supabase/client'
 import { createTask } from '@/app/teacher/tasks/actions'
-import { useFormState, useFormStatus } from 'react-dom'
-import { useToast } from '@/hooks/use-toast'
 import { type Profile } from '@/types/custom'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
-
-const initialState = {
-  message: '',
-  success: false
-}
-
-function CreateTaskButton () {
-  const { pending } = useFormStatus()
-
-  return (
-    <Button type="submit" className="w-full" disabled={pending}>
-      {pending ? 'Creando tarea...' : 'Crear Tarea'}
-    </Button>
-  )
-}
+import { toast } from 'sonner'
 
 export default function CreateTaskPage () {
   const [students, setStudents] = useState<Profile[]>([])
-  const [state, formAction] = useFormState(createTask, initialState)
-  const { toast } = useToast()
+  const [{ message }, formAction, isPending] = useActionState(createTask, { success: false, message: '' })
 
   useEffect(() => {
     async function fetchStudents () {
-      const supabase = createClient()
+      const supabase = await createClient()
       const { data, error } = await supabase
         .from('profiles')
         .select('id, name, users_role!inner(role)')
         .eq('users_role.role', 'student')
 
       if (error) {
-        console.error('Error fetching students:', error)
+        toast.error(error.message)
       } else {
         setStudents(data as Profile[])
       }
@@ -51,21 +34,14 @@ export default function CreateTaskPage () {
     fetchStudents()
   }, [])
 
-  console.log(students)
-
   useEffect(() => {
-    if (state?.message) {
-      toast({
-        title: state.success ? 'Success' : 'Error',
-        description: state.message,
-        variant: state.success ? 'default' : 'destructive'
-      })
+    if (message) {
+      toast.error(message)
     }
-  }, [state, toast])
+  }, [message])
 
   return (
     <div className="container mx-auto my-10 flex flex-col gap-2">
-
       <Link href="/teacher/tasks">
         <Button variant="outline">
           <ArrowLeft/>
@@ -110,7 +86,9 @@ export default function CreateTaskPage () {
               </select>
             </div>
             <CardFooter>
-              <CreateTaskButton />
+            <Button type="submit" className="w-full" disabled={isPending}>
+              {isPending ? 'Creando tarea...' : 'Crear Tarea'}
+            </Button>
             </CardFooter>
           </form>
         </CardContent>
