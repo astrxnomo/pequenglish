@@ -6,8 +6,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { login } from '@/app/login/actions'
 import { toast } from 'sonner'
-import { Lock, Mail, TriangleAlert } from 'lucide-react'
-import { Badge } from '../ui/badge'
+import { LoaderCircle, Lock, Mail, TriangleAlert } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
 
 export default function LoginForm () {
   const [{ message }, formAction, isPending] = useActionState(login, { success: false, message: '' })
@@ -23,13 +23,7 @@ export default function LoginForm () {
       <div className="space-y-1">
         <Label htmlFor="email">Correo electronico</Label>
         <div className="relative">
-          <Input
-          id="email"
-          name="email"
-          type="email"
-          placeholder="example@domain.com"
-          required
-        />
+          <Input id="email" name="email" type="email" placeholder="example@domain.com" required/>
           <div className="pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-muted-foreground/80 peer-disabled:opacity-50">
             <Mail size={16} strokeWidth={2} aria-hidden="true" />
           </div>
@@ -51,7 +45,7 @@ export default function LoginForm () {
         </Badge>
       )}
       <Button type="submit" className="w-full" disabled={isPending}>
-        {isPending ? 'Logging in...' : 'Log in'}
+        {isPending ? <LoaderCircle className='animate-spin'/> : 'Iniciar sesión'}
       </Button>
     </form>
   )

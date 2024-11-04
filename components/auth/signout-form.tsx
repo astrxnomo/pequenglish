@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { signOut } from '@/app/login/actions'
 
 import { toast } from 'sonner'
+import { LoaderCircle, LogOut } from 'lucide-react'
 
 export default function SignOutForm () {
   const [{ message }, formAction, isPending] = useActionState(signOut, { message: '', success: false })
@@ -18,7 +19,7 @@ export default function SignOutForm () {
   return (
     <form action={formAction}>
       <Button type="submit" className="w-full" disabled={isPending}>
-        {isPending ? 'Signing out...' : 'Sign out'}
+        {isPending ? <LoaderCircle className='animate-spin'/> : <LogOut />}
       </Button>
     </form>
   )

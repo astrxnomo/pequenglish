@@ -44,7 +44,7 @@ export default async function Header () {
               )
             : (
             <Button asChild>
-              <Link href="/login">Sign In</Link>
+              <Link href="/login">Iniciar sesión</Link>
             </Button>
               )}
         </div>

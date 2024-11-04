@@ -9,7 +9,7 @@ import { createClient } from '@/utils/supabase/client'
 import { createTask } from '@/app/teacher/tasks/actions'
 import { type Profile } from '@/types/custom'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, LoaderCircle } from 'lucide-react'
 import { toast } from 'sonner'
 
 export default function CreateTaskPage () {
@@ -87,7 +87,7 @@ export default function CreateTaskPage () {
             </div>
             <CardFooter>
             <Button type="submit" className="w-full" disabled={isPending}>
-              {isPending ? 'Creando tarea...' : 'Crear Tarea'}
+              {isPending ? <LoaderCircle className='animate-spin'/> : 'Crear Tarea'}
             </Button>
             </CardFooter>
           </form>

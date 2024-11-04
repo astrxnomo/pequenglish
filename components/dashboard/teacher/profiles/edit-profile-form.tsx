@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label'
 import { updateProfile } from '@/app/teacher/users/actions'
 import { toast } from 'sonner'
 import { type Profile } from '@/types/custom'
+import { LoaderCircle } from 'lucide-react'
 
 export default function EditProfileForm ({ profile }: { profile: Profile }) {
   const updateProfileWithId = updateProfile.bind(null, profile.id)
@@ -31,7 +32,7 @@ export default function EditProfileForm ({ profile }: { profile: Profile }) {
         />
       </div>
       <Button type="submit" className="w-full" disabled={isPending}>
-        {isPending ? 'Actualizando...' : 'Actualizar'}
+        {isPending ? <LoaderCircle className='animate-spin'/> : 'Actualizar'}
       </Button>
     </form>
   )
