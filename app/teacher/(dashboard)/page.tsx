@@ -22,7 +22,7 @@ export default async function TeacherPage () {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button className="aspect-square max-sm:p-0">
-                    <Settings className="opacity-60 sm:-ms-1" size={16} strokeWidth={2} aria-hidden="true" />
+                    <Settings size={16} strokeWidth={2} aria-hidden="true" />
                     <span className="max-sm:sr-only">Gestionar tareas</span>
                   </Button>
                 </TooltipTrigger>
@@ -46,7 +46,7 @@ export default async function TeacherPage () {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button className="aspect-square max-sm:p-0">
-                    <Settings className="opacity-60 sm:-ms-1" size={16} strokeWidth={2} aria-hidden="true" />
+                    <Settings size={16} strokeWidth={2} aria-hidden="true" />
                     <span className="max-sm:sr-only">Gestionar clases</span>
                   </Button>
                 </TooltipTrigger>
@@ -68,7 +68,7 @@ export default async function TeacherPage () {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button className="aspect-square max-sm:p-0">
-                    <Plus className="opacity-60 sm:-ms-1" size={16} strokeWidth={2} aria-hidden="true" />
+                    <Plus size={16} strokeWidth={2} aria-hidden="true" />
                     <span className="max-sm:sr-only">Crear usuario</span>
                   </Button>
                 </TooltipTrigger>
