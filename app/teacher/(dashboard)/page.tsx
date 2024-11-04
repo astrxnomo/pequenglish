@@ -6,8 +6,11 @@ import { Plus, Settings } from 'lucide-react'
 import TaskList from '@/components/dashboard/teacher/tasks/task-list'
 import { Suspense } from 'react'
 import { TaskListSkeleton } from '@/components/dashboard/teacher/tasks/task-list-skeleton'
+import { ProfileListSkeleton } from '@/components/dashboard/teacher/profiles/profile-list-skeleton'
 
 export default async function TeacherPage () {
+  const taskLimit = 3
+
   return (
     <div className="space-y-10">
       <section>
@@ -20,8 +23,8 @@ export default async function TeacherPage () {
             </Button>
           </Link>
         </div>
-        <Suspense fallback={<TaskListSkeleton count={6} />}>
-          <TaskList isTeacher={true} />
+        <Suspense fallback={<TaskListSkeleton count={taskLimit}/>}>
+          <TaskList isTeacher={true} count={taskLimit} />
         </Suspense>
       </section>
 
@@ -48,7 +51,9 @@ export default async function TeacherPage () {
             </Button>
           </Link>
         </div>
-        <ProfileList/>
+        <Suspense fallback={<ProfileListSkeleton/>}>
+          <ProfileList/>
+        </Suspense>
       </section>
     </div>
   )

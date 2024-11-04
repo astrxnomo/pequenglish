@@ -6,6 +6,8 @@ import { Suspense } from 'react'
 import { TaskListSkeleton } from '@/components/dashboard/teacher/tasks/task-list-skeleton'
 
 export default async function TasksPage () {
+  const taskCount = 6
+
   return (
     <div className="space-y-10">
       <section>
@@ -27,8 +29,8 @@ export default async function TasksPage () {
             </Link>
           </div>
         </div>
-        <Suspense fallback={<TaskListSkeleton count={6} />}>
-          <TaskList isTeacher={true} />
+        <Suspense fallback={<TaskListSkeleton count={taskCount}/>}>
+          <TaskList isTeacher={true} count={taskCount} />
         </Suspense>
       </section>
     </div>

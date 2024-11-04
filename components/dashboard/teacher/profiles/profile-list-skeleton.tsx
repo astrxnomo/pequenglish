@@ -1,4 +1,4 @@
-export function UserListSkeleton () {
+export function ProfileListSkeleton () {
   return (
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 animate-pulse">
         {[...Array(3)].map((_, index) => (
