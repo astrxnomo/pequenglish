@@ -10,11 +10,11 @@ export default function Index () {
           <div className="flex flex-col items-center space-y-8 text-center">
             <div className="space-y-4">
               <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-                ¡Ayuda a tus hijos a aprender inglés con
-                <span className="text-teal-600"> clases privadas</span>!
+                ¡Transforma el futuro de tus
+                <span className="text-teal-600"> hijos</span>!
               </h1>
               <p className="mx-auto max-w-[700px] text-gray-600 md:text-xl">
-                Una plataforma educativa diseñada para que los niños aprendan inglés a través de clases privadas con profesores calificados. ¡Haz que el aprendizaje sea efectivo y personalizado!
+                Descubre una plataforma educativa innovadora donde tus hijos aprenderán inglés de manera efectiva y personalizada con profesores altamente calificados. ¡Haz que el aprendizaje sea una experiencia única y enriquecedora!
               </p>
             </div>
             <div className="space-x-4">
@@ -37,22 +37,22 @@ export default function Index () {
             <div className="flex flex-col items-center space-y-4 p-6 bg-teal-50 rounded-lg">
               <PlayCircle className="w-12 h-12 text-teal-500" />
               <h3 className="text-xl font-bold text-teal-700">Clases Personalizadas</h3>
-              <p className="text-center text-gray-600">Tus hijos recibirán atención individualizada para maximizar su aprendizaje</p>
+              <p className="text-center text-gray-600">Tus hijos recibirán atención individualizada para maximizar su aprendizaje y alcanzar su máximo potencial.</p>
             </div>
             <div className="flex flex-col items-center space-y-4 p-6 bg-teal-100 rounded-lg">
               <Music className="w-12 h-12 text-teal-600" />
               <h3 className="text-xl font-bold text-teal-700">Profesores Calificados</h3>
-              <p className="text-center text-gray-600">Instructores expertos que harán que el aprendizaje sea efectivo y divertido</p>
+              <p className="text-center text-gray-600">Instructores expertos que harán que el aprendizaje sea efectivo, divertido y adaptado a las necesidades de cada niño.</p>
             </div>
             <div className="flex flex-col items-center space-y-4 p-6 bg-teal-50 rounded-lg">
               <BookOpen className="w-12 h-12 text-teal-500" />
               <h3 className="text-xl font-bold text-teal-700">Materiales Interactivos</h3>
-              <p className="text-center text-gray-600">Recursos didácticos que mantendrán a tus hijos interesados y motivados</p>
+              <p className="text-center text-gray-600">Recursos didácticos innovadores que mantendrán a tus hijos interesados y motivados en cada lección.</p>
             </div>
             <div className="flex flex-col items-center space-y-4 p-6 bg-teal-100 rounded-lg">
               <Pencil className="w-12 h-12 text-teal-600" />
               <h3 className="text-xl font-bold text-teal-700">Progreso Medible</h3>
-              <p className="text-center text-gray-600">Seguimiento del avance de tus hijos para asegurar resultados óptimos</p>
+              <p className="text-center text-gray-600">Seguimiento detallado del avance de tus hijos para asegurar resultados óptimos y un aprendizaje continuo.</p>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@ export default function Index () {
                 ¡Únete a nuestra comunidad de pequeños aprendices!
               </h2>
               <p className="mx-auto max-w-[600px] text-gray-600 md:text-xl">
-                Miles de niños ya están aprendiendo inglés de forma efectiva con Pequenglish. ¡Dales a tus hijos la ventaja de aprender un nuevo idioma con clases privadas!
+                Miles de niños ya están aprendiendo inglés de forma efectiva con Pequenglish. ¡Dales a tus hijos la ventaja de aprender un nuevo idioma con clases privadas y personalizadas!
               </p>
             </div>
             <Button className="bg-teal-500 hover:bg-teal-600 text-white" size="lg" asChild>

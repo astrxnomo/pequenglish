@@ -28,7 +28,7 @@ export default async function Header () {
                 <AuthenticatedNav />
                 )
               : (
-                <Button asChild className="bg-teal-600 hover:bg-teal-700" size="lg">
+                <Button asChild className="bg-teal-600 hover:bg-teal-700">
                   <Link href="/login">Iniciar sesión</Link>
                 </Button>
                 )
