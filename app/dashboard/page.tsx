@@ -9,6 +9,7 @@ import { TaskListSkeleton } from '@/components/dashboard/tasks/task-list-skeleto
 import { ProfileListSkeleton } from '@/components/dashboard/profiles/profile-list-skeleton'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { createClient } from '@/utils/supabase/server'
+import { redirect } from 'next/navigation'
 
 export default async function DashboardPage () {
   const taskLimit = 3
@@ -18,7 +19,9 @@ export default async function DashboardPage () {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (user) {
+  if (!user) {
+    redirect('/login')
+  } else {
     const { data: role } = await supabase
       .from('users_role')
       .select('user_id, role')
