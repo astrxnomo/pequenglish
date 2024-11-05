@@ -35,7 +35,7 @@ export default async function CreateTaskPage () {
     .eq('users_role.role', 'student')
 
   return (
-    <div className="container mx-auto my-10 flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <Link href="/dashboard/tasks">
         <BackButton/>
       </Link>

@@ -1,10 +1,9 @@
 import React from 'react'
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
-import SignOutForm from '@/components/auth/signout-form'
+import AuthenticatedNav from '@/components/auth/authenticated-nav'
 import { Button } from '@/components/ui/button'
-import { Home } from 'lucide-react'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip'
+import { BookOpen } from 'lucide-react'
 
 export default async function Header () {
   const supabase = await createClient()
@@ -12,40 +11,29 @@ export default async function Header () {
   const { data: { user } } = await supabase.auth.getUser()
 
   return (
-    <header className="z-10 sticky top-0 w-full border-b border-border bg-background">
-      <div className="container flex h-14 max-w-screen-2xl items-center">
-        <nav className="flex items-center space-x-4 lg:space-x-6">
-          <Link className="mr-6 flex items-center space-x-2" href="/">
-            <span className="font-bold">Pequenglish</span>
+    <header className="px-4 lg:px-6 h-16 flex items-center">
+      <div className="container mx-auto px-4 py-4">
+        <nav className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+          <Link className="flex items-center justify-center" href="/">
+            <span className="flex gap-2 items-center text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-teal-700">
+              <BookOpen className="h-7 w-7 text-teal-600" />
+              Pequenglish
+            </span>
           </Link>
+          </div>
+
+            {user
+              ? (
+                <AuthenticatedNav />
+                )
+              : (
+                <Button asChild className="bg-teal-600 hover:bg-teal-700" size="lg">
+                  <Link href="/login">Iniciar sesión</Link>
+                </Button>
+                )
+            }
         </nav>
-        <div className="flex flex-1 items-center justify-end space-x-2">
-          {user
-            ? (
-            <div className='flex gap-2'>
-              <Link href='/dashboard'>
-                <TooltipProvider delayDuration={0}>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant='outline' type="submit" size="icon" aria-label="Crear tarea">
-                        <Home/>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent className="border border-input bg-popover px-2 py-1 text-xs text-muted-foreground">
-                      Panel principal
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </Link>
-              <SignOutForm />
-            </div>
-              )
-            : (
-            <Button asChild>
-              <Link href="/login">Iniciar sesión</Link>
-            </Button>
-              )}
-        </div>
       </div>
     </header>
   )
