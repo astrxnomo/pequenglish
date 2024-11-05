@@ -16,7 +16,7 @@ export default function UserItem ({ profile }: { profile: Profile }) {
             {profile.name ?? 'Sin nombre'}
           </h2>
           <Link href={`/dashboard/users/${profile.id}/edit`}>
-            <Badge>
+            <Badge className='rounded-md'>
               Editar
             </Badge>
           </Link>
