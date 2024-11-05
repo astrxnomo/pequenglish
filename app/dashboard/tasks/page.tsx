@@ -7,6 +7,7 @@ import { TaskListSkeleton } from '@/components/dashboard/tasks/task-list-skeleto
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import BackButton from '@/components/back-button'
 import { createClient } from '@/utils/supabase/server'
+import { redirect } from 'next/navigation'
 
 export default async function TasksPage () {
   const taskCount = 6
@@ -16,7 +17,9 @@ export default async function TasksPage () {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (user) {
+  if (!user) {
+    redirect('/login')
+  } else {
     const { data: role } = await supabase
       .from('users_role')
       .select('user_id, role')
