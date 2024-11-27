@@ -115,8 +115,8 @@ export default function Index () {
                 <p className="text-center text-gray-600">Tus hijos recibirán atención individualizada para maximizar su aprendizaje y alcanzar su máximo potencial.</p>
               </div>
 
-              <div className="flex flex-col items-center space-y-4 p-6 bg-teal-100 rounded-lg shadow-lg">
-                <MessageCircleQuestion className="w-12 h-12 text-teal-600" />
+              <div className="flex flex-col items-center space-y-4 p-6 bg-teal-50 rounded-lg shadow-lg">
+                <MessageCircleQuestion className="w-12 h-12 text-teal-500" />
                 <h3 className="text-xl font-bold text-teal-700">Soporte Constante</h3>
                 <p className="text-center text-gray-600">Nuestro equipo está siempre disponible para resolver cualquier duda o problema que puedas tener.</p>
               </div>
@@ -127,8 +127,8 @@ export default function Index () {
                 <p className="text-center text-gray-600">Recursos didácticos innovadores que mantendrán a tus hijos interesados y motivados en cada lección.</p>
               </div>
 
-              <div className="flex flex-col items-center space-y-4 p-6 bg-teal-100 rounded-lg shadow-lg">
-                <ShieldCheck className="w-12 h-12 text-teal-600" />
+              <div className="flex flex-col items-center space-y-4 p-6 bg-teal-50 rounded-lg shadow-lg">
+                <ShieldCheck className="w-12 h-12 text-teal-500" />
                 <h3 className="text-xl font-bold text-teal-700">Entorno Seguro</h3>
                 <p className="text-center text-gray-600">Proporcionamos un entorno seguro y acogedor para que tus hijos puedan aprender con confianza y tranquilidad.</p>
               </div>
