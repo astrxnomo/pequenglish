@@ -16,10 +16,12 @@ export default async function Header () {
         <nav className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
           <Link className="flex items-center justify-center" href="/">
-            <span className="flex gap-2 items-center text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-teal-700">
-              <BookOpen className="h-7 w-7 text-teal-600" />
+          <div className="inline-flex items-center gap-2 rounded-lg px-2 py-1 hover:bg-slate-100">
+            <BookOpen className="h-6 w-6 text-teal-600" />
+            <span className="bg-gradient-to-r from-teal-600 to-teal-700 bg-clip-text text-2xl font-bold text-transparent">
               Pequenglish
             </span>
+          </div>
           </Link>
           </div>
 
