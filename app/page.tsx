@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { MessageCircleQuestion, Shapes, ShieldCheck, UserSearch } from 'lucide-react'
+import { MapPin, MessageCircleQuestion, Shapes, ShieldCheck, UserSearch } from 'lucide-react'
 import Link from 'next/link'
 import { motion } from 'motion/react'
 
@@ -48,7 +48,7 @@ export default function Index () {
         </motion.div>
       </div>
 
-      <section className="max-w-screen-xl px-6 py-20 mx-auto lg:px-6 lg:py-40">
+      <section className="max-w-screen-xl px-6 py-20 mx-auto lg:px-6 lg:py-30">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -56,6 +56,10 @@ export default function Index () {
           className="text-center"
         >
           <div className="max-w-xl mx-auto">
+            <div className="inline-flex justify-center items-center gap-1 text-sm font-semibold bg-teal-100/80 text-teal-700 px-4 py-1 mb-4 rounded-full">
+              <MapPin className='w-4 h-4'/>
+              Chinchiná, Caldas
+            </div>
             <h1 className="text-5xl font-bold leading-none tracking-tight text-primary-900 dark:text-white md:text-6xl mb-6">
               <motion.span
                 initial={{ opacity: 0, x: -20 }}
