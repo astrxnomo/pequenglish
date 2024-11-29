@@ -5,8 +5,8 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 
 export const metadata = {
-  title: 'Pequenglish - Plataforma Educativa para Niños',
-  description: 'Una plataforma divertida e interactiva para que los niños aprendan ingles'
+  title: 'Pequenglish - Tranforma el futuro de tus hijos',
+  description: 'Una plataforma para aprender ingles para niño, administra tareas y horarios de estudio.'
 }
 
 export default function RootLayout ({
@@ -15,7 +15,7 @@ export default function RootLayout ({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" className={GeistSans.className}>
+    <html lang="es" className={`${GeistSans.className} light`}>
       <body className="min-h-screen bg-gradient-to-b from-teal-50/40 to-teal-100/40">
         <Header />
         <main className="flex-1">
